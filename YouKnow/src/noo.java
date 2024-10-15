@@ -1,6 +1,10 @@
 public class noo {
 
-
+    /**
+     * recursive algorithm
+     * @param n number
+     * @return long value
+     */
     public static long f_01(int n) {
         if ( n <= 1) {
             return n;
@@ -11,7 +15,11 @@ public class noo {
 
     }
 
-    //non
+    /**
+     * non-recursive algorithm
+     * @param n number
+     * @return long[] value
+     */
     public static long f_02(int n) {
         long[] F = new long[n + 2];
         F[0] = 0;
@@ -22,7 +30,11 @@ public class noo {
         return F[n];
     }
 
-    //matrix
+    /**
+     * matrix algorithm
+     * @param n number
+     * @return long[][] value
+     */
     public static long f_03(int n) {
         if ( n == 0) {
             return 0;
@@ -37,6 +49,10 @@ public class noo {
 
     }
 
+    /**
+     *below are extra functions of matrix algorithm
+     *
+     */
     //construct a matrix with line 1
     private static long[][] identityMatrix(int size) {
         long[][] matrix = new long[size][size];
@@ -89,7 +105,11 @@ public class noo {
     }
 
 
-    //quick
+    /**
+     * quick algorithm
+     * @param n number
+     * @return long value
+     */
     public static long f_04(int n) {
         if (n <= 1) {
             return n;

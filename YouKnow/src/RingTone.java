@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * @author xx8001
+ */
 
 public class RingTone extends JFrame {
 
+    /**
+     * Main window, includes 4 button
+     */
     public RingTone() {
         setTitle("I Wanna Eat Dinner");
         setSize(1300, 700);
@@ -24,7 +28,6 @@ public class RingTone extends JFrame {
             // Non-recursive algorithm
             Loading(()->{
                 long startTime = System.currentTimeMillis();
-//                JOptionPane.showMessageDialog(null, "Launching Non-Recursive Algorithm");
                 long result = noo.f_02(n);
                 long endTime = System.currentTimeMillis();
                 long elapsedTime = endTime - startTime;
@@ -43,7 +46,7 @@ public class RingTone extends JFrame {
                 long elapsedTime = endTime - startTime;
                 showLargeMessage("Result: " + result + "\n Time spent: " + elapsedTime + " ms");
 
-                //max fib
+                //max fib in 30s
                 showLargeMessage("Find Max Fibonacci in 30s....\n");
                 long[] nn = shhh_1();
                 showLargeMessage("Max fib in 30s is at: " + (nn[0] - 1) + " , value is " + nn[1]);
@@ -64,28 +67,26 @@ public class RingTone extends JFrame {
                 long elapsedTime = endTime - startTime;
                 showLargeMessage("Result: " + result + "\n Time spent: " + elapsedTime + " ms");
 
+                //result value occurring place when comparing this algorithm and formula
                 showLargeMessage("calculate the place of Errors occur...\n" );
                 int nn = findMinErrorN();
                 showLargeMessage("Errors occur at : " + nn);
             });
         });
 
-        button4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // Matrix multiplication algorithm
-                int n = Integer.parseInt(JOptionPane.showInputDialog("Enter a number:"));
-                Loading(()->{
-                    long startTime = System.currentTimeMillis();
-                    long result = noo.f_03(n);
-                    long endTime = System.currentTimeMillis();
-                    long elapsedTime = endTime - startTime;
-                    showLargeMessage("Result: " + result + "\n Time spent: " + elapsedTime + " ms");
-                });
-            }
+        button4.addActionListener(actionEvent -> {
+            // Matrix multiplication algorithm
+            int n = Integer.parseInt(JOptionPane.showInputDialog("Enter a number:"));
+            Loading(()->{
+                long startTime = System.currentTimeMillis();
+                long result = noo.f_03(n);
+                long endTime = System.currentTimeMillis();
+                long elapsedTime = endTime - startTime;
+                showLargeMessage("Result: " + result + "\n Time spent: " + elapsedTime + " ms");
+            });
         });
 
-
+        //add buttons into JFrame
         add(button1);
         add(button2);
         add(button3);
@@ -93,13 +94,13 @@ public class RingTone extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new RingTone().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new RingTone().setVisible(true));
     }
+
+    /**
+     * below are extra functions used
+     *
+     */
 
     // Method to show a larger message dialog
     public void showLargeMessage(String message) {
@@ -118,9 +119,9 @@ public class RingTone extends JFrame {
         loadingDialog.add(new JLabel("Calculating, please wait..."), BorderLayout.CENTER);
         loadingDialog.setModal(true);
 
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
-            protected Void doInBackground() throws Exception {
+            protected Void doInBackground()  {
                 task.run();
                 return null;
             }
@@ -136,6 +137,10 @@ public class RingTone extends JFrame {
 
     }
 
+    /**
+     * calculate max fibonacci value in 30s by recursive algorithm
+     * @return long[]{place, value}
+     */
     public long[] shhh_1() {
         int n = 1;
         long timelimit = 30000;  //30s
@@ -144,14 +149,16 @@ public class RingTone extends JFrame {
 
         while (true) {
             if (System.currentTimeMillis() - starttime > timelimit) {
-//                System.out.println("Max fib in 30s is : Fibonacci(" + (n - 1) + ")");
                 return new long[]{n - 1, f};
             }
-
-            f = noo.f_01(n);  // 调用斐波那契数计算函数
+            f = noo.f_01(n);
             n++;
         }
     }
+
+    /**
+     * using formula to calculate fibonacci
+     */
 
     public static double phi = (1 + Math.sqrt(5)) / 2;
 
@@ -159,13 +166,16 @@ public class RingTone extends JFrame {
         return Math.round(Math.pow(phi, n) / Math.sqrt(5));
     }
 
+    /**
+     * find the first place where the error occurs
+     * @return n
+     */
     public static int findMinErrorN() {
         int n = 1;
         while (true) {
             long formulaFibonacci = ff_04(n);//quick ssss
             long iterativeFibonacci = noo.f_04(n);
             if (Math.abs(formulaFibonacci - iterativeFibonacci) > 0) {
-//                System.out.println("出现误差时的最小 n 值为：" + n);
                 return n;
             }
             n++;
